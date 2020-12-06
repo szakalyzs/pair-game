@@ -17,6 +17,13 @@ body {
 
 h1, h2, .clock {
     color: rgb(255,255,255);
+    font-weight: 100;
+    font-variant: small-caps;
+}
+
+.clock {
+    font-size: 2rem;
+    padding: 0 0 20px 0;
 }
 
 .cards {
@@ -31,7 +38,6 @@ h1, h2, .clock {
     flex: 16%;
     margin: 10px;
     border-radius: 10px;
-    /* width: 120px; */
     height: 180px;
     perspective: 600px;
 }
@@ -41,12 +47,8 @@ h1, h2, .clock {
     height: 100%;
     transition: transform 1s;
     transform-style: preserve-3d;
-
     position: relative;
-    
     user-select: none;  
- /*    background-image: url("../img/card-back.png");
-    color: rgb(0,0,0,); */
 }
 
 .card.is-flipped {
@@ -78,15 +80,3 @@ h1, h2, .clock {
     border-radius: 10px;
     cursor: default;
 }
-
-/* .card--face {
-    flex: 16%;
-    margin: 10px;
-    border-radius: 10px;
-    line-height: 10rem;  
-    user-select: none;  
-    cursor: pointer;
-    background-image: none;
-    background-color: rgb(255,255,255);
-    color: rgb(0,0,0,);
-} */

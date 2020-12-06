@@ -15,12 +15,29 @@ function shuffle() {
         myArr.push(randNum);
     }
     return myArr;
-
 }
-
 
 const cards = [];
 const clickedCards = [];
+let timeCounting;
+let clickCount = 0;
+
+function stopper() {
+    let timeCounter = 0;
+    timeCounting = setInterval(() => {
+        timeCounter += 1;
+        
+        displayStopper(timeCounter);
+    }, 1000);
+}
+
+function displayStopper(counter) {
+    const minutes = Math.floor(counter / 60);
+    const seconds = counter % 60;
+    const clock = document.querySelector('.clock');
+    clock.textContent = `${minutes < 10 ? `0${minutes}` : `${minutes}`}:${seconds < 10 ? `0${seconds}` : `${seconds}`}`;
+}
+
 
 (function cardsArrInit() {
     const randArr = shuffle();
@@ -41,14 +58,20 @@ const cardArr = document.querySelectorAll('.card');
 (function cardClick() {
     for (let i = 0; i < cardArr.length; i++) {
         cardArr[i].addEventListener('click', () => {
-            if (cards[i].clickAble) {
+            clickCount += 1;
+            if (clickCount == 1) {
+                stopper();
+            }
+            if(cards[i].clickAble) {
                 cardArr[i].classList.toggle('is-flipped');
                 setTimeout(() => {
                     checkHit(i);
+                    checkOver();
                 }, 800);
+
             }
-        });
-       
+            
+        });   
     }
 })();
 
@@ -66,5 +89,15 @@ function checkHit(cardNum) {
             cardArr[clickedCards[1]].classList.toggle('is-flipped');
         }
         clickedCards.length = 0;
+    }
+}
+
+function checkOver() {
+    if (cards.every(item => item.clickAble == false)) {
+        clearInterval(timeCounting);
+        setTimeout(() => {
+            cardArr.forEach(item => item.classList.toggle('is-flipped'));
+            setTimeout(() => { location.reload() }, 700);
+                }, 4300);
     }
 }
