@@ -41,10 +41,12 @@ const cardArr = document.querySelectorAll('.card');
 (function cardClick() {
     for (let i = 0; i < cardArr.length; i++) {
         cardArr[i].addEventListener('click', () => {
-            cardArr[i].classList.toggle('is-flipped');
-            setTimeout(() => {
-                checkHit(i);
-            }, 800);
+            if (cards[i].clickAble) {
+                cardArr[i].classList.toggle('is-flipped');
+                setTimeout(() => {
+                    checkHit(i);
+                }, 800);
+            }
         });
        
     }
@@ -56,7 +58,8 @@ function checkHit(cardNum) {
     }
     if (clickedCards.length == 2) {
         if (Math.abs(cards[clickedCards[0]].iconNum - cards[clickedCards[1]].iconNum) == 5) {
-            
+            cards[clickedCards[0]].clickAble = false;
+            cards[clickedCards[1]].clickAble = false;
  
         } else {
             cardArr[clickedCards[0]].classList.toggle('is-flipped');
